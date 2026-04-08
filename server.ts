@@ -12,8 +12,8 @@ const handler = app.getRequestHandler();
 const JWT_SECRET = process.env.JWT_SECRET || '800e843c089c894982637213456789abcdef';
 const secret = new TextEncoder().encode(JWT_SECRET);
 
-// Store online users
-const onlineUsers = new Map();
+// Store online users: userId -> set of socketIds
+const onlineUsers = new Map<string, Set<string>>();
 
 app.prepare().then(() => {
   const httpServer = createServer(handler);
@@ -37,20 +37,34 @@ app.prepare().then(() => {
 
   io.on("connection", (socket) => {
     const userId = (socket as any).userId;
-    onlineUsers.set(userId, socket.id);
-    io.emit("user-online", userId);
+
+    // Add to online users
+    if (!onlineUsers.has(userId)) {
+      onlineUsers.set(userId, new Set());
+    }
+    onlineUsers.get(userId)?.add(socket.id);
+
+    // Broadcast updated online users list
+    io.emit("user-status-update", Array.from(onlineUsers.keys()));
 
     socket.on("join-conversation", (conversationId) => {
       socket.join(conversationId);
     });
 
     socket.on("send-message", (data) => {
-      io.to(data.conversationId).emit("receive-message", data);
+      // Broadcast to specific conversation room
+      socket.to(data.conversationId).emit("receive-message", data);
     });
 
     socket.on("disconnect", () => {
-      onlineUsers.delete(userId);
-      io.emit("user-offline", userId);
+      const userSockets = onlineUsers.get(userId);
+      if (userSockets) {
+        userSockets.delete(socket.id);
+        if (userSockets.size === 0) {
+          onlineUsers.delete(userId);
+        }
+      }
+      io.emit("user-status-update", Array.from(onlineUsers.keys()));
     });
   });
 

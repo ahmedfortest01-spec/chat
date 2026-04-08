@@ -14,8 +14,9 @@ export default function LoginPage() {
 
         <form action={login} className="space-y-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 block">Email Address</label>
+            <label htmlFor="email" className="text-sm font-medium text-slate-300 block">Email Address</label>
             <input
+              id="email"
               name="email"
               type="email"
               required
@@ -25,8 +26,9 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 block">Password</label>
+            <label htmlFor="password" className="text-sm font-medium text-slate-300 block">Password</label>
             <input
+              id="password"
               name="password"
               type="password"
               required
@@ -45,7 +47,7 @@ export default function LoginPage() {
 
         <p className="text-center mt-6 text-slate-400 text-sm">
           Don&apos;t have an account?{' '}
-          <Link href="/register" className="text-blue-500 hover:underline">
+          <Link href="/auth/register" className="text-blue-500 hover:underline">
             Register now
           </Link>
         </p>

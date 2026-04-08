@@ -10,18 +10,18 @@ export async function middleware(request: NextRequest) {
 
   if (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/chat')) {
     if (!token) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      return NextResponse.redirect(new URL('/auth/login', request.url));
     }
 
     try {
       await jwtVerify(token, secret);
       return NextResponse.next();
     } catch (error) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      return NextResponse.redirect(new URL('/auth/login', request.url));
     }
   }
 
-  if (request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/register')) {
+  if (request.nextUrl.pathname.startsWith('/auth')) {
     if (token) {
       try {
         await jwtVerify(token, secret);
@@ -36,5 +36,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/chat/:path*', '/login/:path*', '/register/:path*'],
+  matcher: ['/dashboard/:path*', '/chat/:path*', '/auth/:path*'],
 };

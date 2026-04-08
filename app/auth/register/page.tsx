@@ -14,8 +14,9 @@ export default function RegisterPage() {
 
         <form action={register} className="space-y-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 block">Full Name</label>
+            <label htmlFor="name" className="text-sm font-medium text-slate-300 block">Full Name</label>
             <input
+              id="name"
               name="name"
               type="text"
               required
@@ -25,8 +26,9 @@ export default function RegisterPage() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 block">Username</label>
+            <label htmlFor="username" className="text-sm font-medium text-slate-300 block">Username</label>
             <input
+              id="username"
               name="username"
               type="text"
               required
@@ -36,8 +38,9 @@ export default function RegisterPage() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 block">Email Address</label>
+            <label htmlFor="email" className="text-sm font-medium text-slate-300 block">Email Address</label>
             <input
+              id="email"
               name="email"
               type="email"
               required
@@ -47,8 +50,9 @@ export default function RegisterPage() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-300 block">Password</label>
+            <label htmlFor="password" className="text-sm font-medium text-slate-300 block">Password</label>
             <input
+              id="password"
               name="password"
               type="password"
               required
@@ -67,7 +71,7 @@ export default function RegisterPage() {
 
         <p className="text-center mt-6 text-slate-400 text-sm">
           Already have an account?{' '}
-          <Link href="/login" className="text-blue-500 hover:underline">
+          <Link href="/auth/login" className="text-blue-500 hover:underline">
             Sign in
           </Link>
         </p>

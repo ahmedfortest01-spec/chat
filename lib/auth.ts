@@ -1,9 +1,12 @@
+'use server';
+
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import bcrypt from 'bcryptjs';
 import connectDB from './db';
 import User from '../models/User';
 import { redirect } from 'next/navigation';
+import { sendWelcomeEmail } from './email';
 
 const JWT_SECRET = process.env.JWT_SECRET || '800e843c089c894982637213456789abcdef';
 const secret = new TextEncoder().encode(JWT_SECRET);
@@ -26,19 +29,18 @@ export async function verifyJWT(token: string) {
 }
 
 export async function register(formData: FormData): Promise<void> {
-  'use server';
-
   const name = formData.get('name') as string;
+  const username = formData.get('username') as string;
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
-  if (!name || !email || !password) {
+  if (!name || !username || !email || !password) {
     redirect('/auth/register?error=Please fill in all fields');
   }
 
   await connectDB();
 
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ $or: [{ email }, { username }] });
   if (userExists) {
     redirect('/auth/register?error=User already exists');
   }
@@ -47,6 +49,7 @@ export async function register(formData: FormData): Promise<void> {
 
   const user = await User.create({
     name,
+    username,
     email,
     password: hashedPassword,
   });
@@ -61,12 +64,13 @@ export async function register(formData: FormData): Promise<void> {
     path: '/',
   });
 
+  // Mock email sending
+  await sendWelcomeEmail(email, name);
+
   redirect('/dashboard');
 }
 
 export async function login(formData: FormData): Promise<void> {
-  'use server';
-
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 
@@ -100,8 +104,6 @@ export async function login(formData: FormData): Promise<void> {
 }
 
 export async function logout(): Promise<void> {
-  'use server';
-
   (await cookies()).delete('token');
   redirect('/auth/login');
 }
