@@ -1,4 +1,4 @@
-import { getSession, logout } from '@/lib/auth';
+import { getSession, logout } from '@/app/actions';
 import { redirect } from 'next/navigation';
 
 export default async function DashboardPage() {

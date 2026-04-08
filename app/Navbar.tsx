@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getSession, logout } from '@/lib/auth';
+import { getSession, logout } from '@/app/actions';
 
 export default async function Navbar() {
   const user = await getSession();

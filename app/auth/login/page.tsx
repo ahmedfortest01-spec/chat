@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { login } from '@/lib/auth';
+'use client';
 
-export const dynamic = 'force-dynamic';
+import Link from 'next/link';
+import { LoginForm } from '@/app/auth/LoginForm';
 
 export default function LoginPage() {
   return (
@@ -12,38 +12,7 @@ export default function LoginPage() {
           <p className="text-slate-400 text-sm">Sign in to access your dashboard</p>
         </div>
 
-        <form action={login} className="space-y-6">
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium text-slate-300 block">Email Address</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              placeholder="name@example.com"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium text-slate-300 block">Password</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              className="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              placeholder="••••••••"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98]"
-          >
-            Sign In
-          </button>
-        </form>
+        <LoginForm />
 
         <p className="text-center mt-6 text-slate-400 text-sm">
           Don&apos;t have an account?{' '}

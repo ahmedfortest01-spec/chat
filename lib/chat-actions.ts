@@ -3,7 +3,7 @@
 import connectDB from './db';
 import Conversation from '@/models/Conversation';
 import Message from '@/models/Message';
-import { getSession } from './auth';
+import { getSession } from '@/app/actions';
 import { revalidatePath } from 'next/cache';
 
 export async function getConversations() {
