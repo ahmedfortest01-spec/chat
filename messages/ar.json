@@ -1,0 +1,47 @@
+{
+  "Common": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "dashboard": "لوحة القيادة",
+    "chat": "المحادثة",
+    "nextAuth": "نيكست-أوث",
+    "app": "تطبيق"
+  },
+  "Landing": {
+    "title": "المصادقة الحديثة أصبحت بسيطة.",
+    "subtitle": "هيكل جاهز للإنتاج باستخدام Next.js 15 و MongoDB و Mongoose ومصادقة JWT المخصصة. آمن وسريع وجميل.",
+    "getStarted": "ابدأ مجانًا",
+    "signIn": "تسجيل الدخول",
+    "feature1Title": "إجراءات الخادم",
+    "feature1Desc": "منطق خلفي آمن بدون نقاط نهاية API.",
+    "feature2Title": "MongoDB و Mongoose",
+    "feature2Desc": "نمذجة بيانات قوية وتخزين قابل للتوسع.",
+    "feature3Title": "مصادقة JWT",
+    "feature3Desc": "إدارة جلسة مخصصة تعتمد على ملفات تعريف الارتباط httpOnly."
+  },
+  "Auth": {
+    "signInTitle": "تسجيل الدخول",
+    "createAccountTitle": "إنشاء حساب",
+    "fullName": "الاسم الكامل",
+    "username": "اسم المستخدم",
+    "email": "عنوان البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "signInButton": "تسجيل الدخول",
+    "createAccountButton": "إنشاء حساب",
+    "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "creatingAccount": "جاري إنشاء الحساب...",
+    "signingIn": "جاري تسجيل الدخول..."
+  },
+  "Chat": {
+    "searchPlaceholder": "البحث عن مستخدمين...",
+    "noConversations": "لم يتم العثور على محادثات.",
+    "selectConversation": "اختر محادثة لبدء الدردشة",
+    "online": "متصل",
+    "offline": "غير متصل",
+    "typeMessage": "اكتب رسالة...",
+    "send": "إرسال",
+    "back": "رجوع"
+  }
+}

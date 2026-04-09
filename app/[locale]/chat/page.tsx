@@ -106,11 +106,11 @@ export default function ChatPage() {
     setMessages((prev: any) => [...prev, msg]);
   };
 
-  if (loading) return <div className="h-screen flex items-center justify-center bg-slate-950 text-white font-medium">Loading Chat...</div>;
+  if (loading) return <div className="h-screen flex items-center justify-center bg-white dark:bg-slate-950 text-slate-900 dark:text-white font-medium">Loading Chat...</div>;
 
   return (
-    <div className="flex h-[calc(100vh-64px)] overflow-hidden bg-slate-950 relative">
-      <div className={`${selectedConversation ? 'hidden md:flex' : 'flex'} w-full md:w-80 h-full`}>
+    <div className="flex h-[calc(100vh-64px)] overflow-hidden bg-white dark:bg-slate-950 relative">
+      <div className={`${selectedConversation ? 'hidden md:flex' : 'flex'} w-full md:w-80 h-full border-r border-slate-200 dark:border-slate-800`}>
         <ChatSidebar
           conversations={conversations}
           onSelectConversation={selectConv}

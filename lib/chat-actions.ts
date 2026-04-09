@@ -3,7 +3,7 @@
 import connectDB from './db';
 import Conversation from '@/models/Conversation';
 import Message from '@/models/Message';
-import { getSession } from '@/app/actions';
+import { getSession } from './actions';
 import { revalidatePath } from 'next/cache';
 
 export async function getConversations() {
@@ -25,14 +25,18 @@ export async function getOrCreateConversation(otherUserId: string) {
   return JSON.parse(JSON.stringify(conversation));
 }
 
-export async function getMessages(conversationId: string) {
+export async function getMessages(conversationId: string, limit: number = 50, skip: number = 0) {
   const session = await getSession();
   if (!session) return [];
   await connectDB();
   const messages = await Message.find({ conversation: conversationId })
     .populate('sender', 'name username')
-    .sort({ createdAt: 1 });
-  return JSON.parse(JSON.stringify(messages));
+    .sort({ createdAt: -1 }) // Sort by newest first for pagination
+    .skip(skip)
+    .limit(limit);
+
+  // Return in chronological order
+  return JSON.parse(JSON.stringify(messages.reverse()));
 }
 
 export async function sendMessage(conversationId: string, text: string) {
