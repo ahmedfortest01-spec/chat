@@ -3,10 +3,10 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import bcrypt from 'bcryptjs';
-import connectDB from '@/lib/db';
-import User from '@/models/User';
+import connectDB from './db';
+import User from '../models/User';
 import { redirect } from 'next/navigation';
-import { sendWelcomeEmail } from '@/lib/email';
+import { sendWelcomeEmail } from './email';
 
 const JWT_SECRET = process.env.JWT_SECRET || '800e843c089c894982637213456789abcdef';
 const secret = new TextEncoder().encode(JWT_SECRET);
@@ -56,7 +56,8 @@ export async function register(formData: FormData) {
 
   const token = await signJWT({ userId: user._id.toString() });
 
-  (await cookies()).set('token', token, {
+  const cookieStore = await cookies();
+  cookieStore.set('token', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
@@ -91,7 +92,8 @@ export async function login(formData: FormData) {
 
   const token = await signJWT({ userId: user._id.toString() });
 
-  (await cookies()).set('token', token, {
+  const cookieStore = await cookies();
+  cookieStore.set('token', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
@@ -103,18 +105,21 @@ export async function login(formData: FormData) {
 }
 
 export async function logout() {
-  (await cookies()).delete('token');
+  const cookieStore = await cookies();
+  cookieStore.delete('token');
   redirect('/auth/login');
 }
 
 export async function getSession() {
-  const token = (await cookies()).get('token')?.value;
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token')?.value;
   if (!token) return null;
 
   const decoded: any = await verifyJWT(token);
   if (!decoded) return null;
 
   await connectDB();
-  const user = await User.findById(decoded.userId).select('-password');
-  return user;
+  const user = await User.findById(decoded.userId).select('-password').lean();
+  if (!user) return null;
+  return JSON.parse(JSON.stringify(user));
 }

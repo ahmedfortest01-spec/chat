@@ -1,0 +1,47 @@
+{
+  "Common": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "dashboard": "Dashboard",
+    "chat": "Chat",
+    "nextAuth": "NextAuth",
+    "app": "App"
+  },
+  "Landing": {
+    "title": "Modern Authentication Made Simple.",
+    "subtitle": "A production-ready scaffold using Next.js 15, MongoDB, Mongoose, and Custom JWT Authentication. Secure, fast, and beautiful.",
+    "getStarted": "Get Started Free",
+    "signIn": "Sign In",
+    "feature1Title": "Server Actions",
+    "feature1Desc": "Secure backend logic without API endpoints.",
+    "feature2Title": "MongoDB & Mongoose",
+    "feature2Desc": "Powerful data modeling and scalable storage.",
+    "feature3Title": "JWT Auth",
+    "feature3Desc": "Custom httpOnly cookie-based session management."
+  },
+  "Auth": {
+    "signInTitle": "Sign In",
+    "createAccountTitle": "Create Account",
+    "fullName": "Full Name",
+    "username": "Username",
+    "email": "Email Address",
+    "password": "Password",
+    "signInButton": "Sign In",
+    "createAccountButton": "Create Account",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "creatingAccount": "Creating Account...",
+    "signingIn": "Signing In..."
+  },
+  "Chat": {
+    "searchPlaceholder": "Search users...",
+    "noConversations": "No conversations found.",
+    "selectConversation": "Select a conversation to start chatting",
+    "online": "Online",
+    "offline": "Offline",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "back": "Back"
+  }
+}
